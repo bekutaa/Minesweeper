@@ -128,8 +128,6 @@ public void displayLosingMessage()
 
     for(int i = 0; i < loser.length(); i++)
         buttons[row][col+i].setLabel(loser.substring(i,i+1));
-
-   noLoop();
 }
 public void displayWinningMessage()
 {
@@ -137,19 +135,15 @@ public void displayWinningMessage()
     int col = (NUM_COLS/4)+1;
     String winner = "You win!";
 
-    for(int i = 0; i < winner.length(); i++) {
-        buttons[row][col+i].setWin(true);
+    for(int i = 0; i < winner.length(); i++)
         buttons[row][col+i].setLabel(winner.substring(i,i+1));
-    }
-
-    noLoop();
 }
 
 public class MSButton
 {
     private int r, c;
     private float x,y, width, height;
-    private boolean clicked, marked, win;
+    private boolean clicked, marked;
     private String label;
     
     public MSButton ( int rr, int cc )
@@ -161,7 +155,7 @@ public class MSButton
         x = c*width;
         y = r*height;
         label = "";
-        marked = clicked = win = false;
+        marked = clicked = false;
         Interactive.add( this ); // register it with the manager
     }
     public boolean isMarked()
@@ -183,36 +177,39 @@ public class MSButton
     {
         clicked = nClick;
     }
-
-    public void setWin(boolean nWin)
-    {
-        win = nWin;
-    }
     
     //called by manager
     public void mousePressed()
     {
-        // if(marked) {
-        //     clicked = false;
-        //     System.out.println("marked is true" + had);
-        // }
-        // else {
-        //     clicked = true;
-        //     System.out.println("clicked is true" + had);
-        //     had++;
-        // }
+        //clicked = true;
 
         if(mouseButton == RIGHT && label.equals(""))
         {
-            clicked = false;
             if(bombs.contains(this)) {
                 clicked = false;
                 marked = !marked;
             }
             else if(clicked == false) {
-                System.out.println(clicked);
                 clicked = false;
                 marked = !marked;
+            }
+        }
+        else if(mouseButton == CENTER)
+        {
+            System.out.println("move");
+            if(countMarks(r,c) == Integer.parseInt(label))
+            {
+                for(int rr = -1; rr < 2; rr++)
+                {
+                    for(int cc = -1; cc < 2; cc++)
+                    {
+                        if(isValid(r+rr,c+cc) && buttons[r+rr][c+cc].isClicked() == false && buttons[r+rr][c+cc].isMarked() == false)
+                        {
+                            System.out.println("check[" + rr + "][" + cc + "]");
+                            buttons[r+rr][c+cc].mouseSurround();
+                        }
+                    }
+                }
             }
         }
         else if(!marked)
@@ -235,11 +232,31 @@ public class MSButton
         }
     }
 
+    public void mouseSurround()
+    {
+        if(!marked)
+        {
+            clicked = true;
+            if(bombs.contains(this)) { displayLosingMessage(); }
+            else if(countBombs(r,c) > 0) { setLabel("" + countBombs(r,c)); }
+            else {
+                for(int rr = -1; rr < 2; rr++)
+                {
+                    for(int cc = -1; cc < 2; cc++)
+                    {
+                        if(isValid(r+rr,c+cc) && buttons[r+rr][c+cc].isClicked() == false)
+                        {
+                            buttons[r+rr][c+cc].mousePressed();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void draw () 
     {    
-        if(win)
-            fill(0,255,0);
-        else if(marked)
+        if(marked)
             fill(0,0,255);
         else if( clicked && bombs.contains(this) ) 
             fill(255,0,0);
@@ -281,6 +298,23 @@ public class MSButton
         }
 
         return numBombs;
+    }
+        public int countMarks(int row, int col)
+    {
+        int numMarks = 0;
+        
+        for(int rr = -1; rr < 2; rr++)
+        {
+            for(int cc = -1; cc < 2; cc++)
+            {
+                if(isValid(row+rr,col+cc) && buttons[row+rr][col+cc].isMarked())
+                {
+                    numMarks++;
+                }
+            }
+        }
+
+        return numMarks;
     }
 }
 
