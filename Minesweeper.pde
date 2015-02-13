@@ -2,7 +2,8 @@ import de.bezier.guido.*;
 //Declare and initialize NUM_ROWS and NUM_COLS = 20
 public static final int NUM_COLS = 20;
 public static final int NUM_ROWS = 20;
-int had = 1;
+public boolean bombsSet = false;
+public boolean gameOver = false;
 
 public static final int NUM_BOMBS = 15;
 
@@ -29,34 +30,19 @@ void setup ()
     }
 
     bombs = new ArrayList <MSButton>();
-    setBombs(NUM_BOMBS);
 }
-public void setBombs(int numBombs)
+public void setBombs(int numBombs, int rr, int cc)
 {
     for(int i = 0; i < numBombs; i++)
     {
         int tRow = (int)(Math.random()*20);
         int tCol = (int)(Math.random()*20);
 
-        if(bombs.contains(buttons[tRow][tCol]) == false)
+        if(bombs.contains(buttons[tRow][tCol]) == false && tRow != rr && tCol != cc)
         {
             bombs.add(buttons[tRow][tCol]);
         }
         else { i--; }
-    }
-}
-
-public void keyPressed()
-{
-    if(key == ' ')
-    {
-        for(int r = 0; r < NUM_ROWS; r++)
-        {
-            for(int c = 0; c < NUM_COLS; c++)
-            {
-                buttons[r][c].setMarked(true);
-            }
-        }
     }
 }
 
@@ -163,50 +149,60 @@ public class MSButton
     //called by manager
     public void mousePressed()
     {
-        //clicked = true;
-
-        if(mouseButton == RIGHT && label.equals(""))
+        if(!bombsSet)
         {
-            if(bombs.contains(this)) {
-                clicked = false;
-                marked = !marked;
-            }
-            else if(clicked == false) {
-                clicked = false;
-                marked = !marked;
-            }
+            bombsSet = true;
+            setBombs(NUM_BOMBS,r,c);
         }
-        else if(mouseButton == CENTER)
-        {
-            
-            if(countMarks(r,c) == Integer.parseInt(label))
+
+        if(!isWon() && !gameOver) { 
+            if(mouseButton == RIGHT && label.equals(""))
             {
-                for(int rr = -1; rr < 2; rr++)
+                if(bombs.contains(this)) {
+                    clicked = false;
+                    marked = !marked;
+                }
+                else if(clicked == false) {
+                    clicked = false;
+                    marked = !marked;
+                }
+            }
+            else if(mouseButton == CENTER)
+            {
+                
+                if(countMarks(r,c) == countBombs(r,c))
                 {
-                    for(int cc = -1; cc < 2; cc++)
+                    for(int rr = -1; rr < 2; rr++)
                     {
-                        if(isValid(r+rr,c+cc) && buttons[r+rr][c+cc].isClicked() == false && buttons[r+rr][c+cc].isMarked() == false)
+                        for(int cc = -1; cc < 2; cc++)
                         {
-                            
-                            buttons[r+rr][c+cc].mouseSurround();
+                            if(isValid(r+rr,c+cc))
+                            {
+                                
+                                buttons[r+rr][c+cc].mouseSurround();
+                            }
                         }
                     }
                 }
             }
-        }
-        else if(!marked)
-        {
-            clicked = true;
-            if(bombs.contains(this)) { displayLosingMessage(); }
-            else if(countBombs(r,c) > 0) { setLabel("" + countBombs(r,c)); }
-            else {
-                for(int rr = -1; rr < 2; rr++)
+            else if(!marked)
+            {
+                clicked = true;
+                if(bombs.contains(this))
                 {
-                    for(int cc = -1; cc < 2; cc++)
+                    gameOver = true;
+                    displayLosingMessage();
+                }
+                else if(countBombs(r,c) > 0) { setLabel("" + countBombs(r,c)); }
+                else {
+                    for(int rr = -1; rr < 2; rr++)
                     {
-                        if(isValid(r+rr,c+cc) && buttons[r+rr][c+cc].isClicked() == false)
+                        for(int cc = -1; cc < 2; cc++)
                         {
-                            buttons[r+rr][c+cc].mousePressed();
+                            if(isValid(r+rr,c+cc) && buttons[r+rr][c+cc].isClicked() == false)
+                            {
+                                buttons[r+rr][c+cc].mousePressed();
+                            }
                         }
                     }
                 }
@@ -216,7 +212,7 @@ public class MSButton
 
     public void mouseSurround()
     {
-        if(!marked)
+        if(!marked && !clicked)
         {
             clicked = true;
             if(bombs.contains(this)) { displayLosingMessage(); }
@@ -281,7 +277,8 @@ public class MSButton
 
         return numBombs;
     }
-        public int countMarks(int row, int col)
+
+    public int countMarks(int row, int col)
     {
         int numMarks = 0;
         
