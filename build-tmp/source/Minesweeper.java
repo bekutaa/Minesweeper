@@ -23,12 +23,12 @@ public static final int NUM_ROWS = 20;
 public boolean bombsSet = false;
 public boolean gameOver = false;
 
-public static final int NUM_BOMBS = 15;
+public static final int NUM_BOMBS = 40;
 
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
 
-public void setup ()
+public void setup()
 {
     size(400, 400);
     textAlign(CENTER,CENTER);
@@ -253,7 +253,7 @@ public class MSButton
     public void draw () 
     {    
         if(marked)
-            fill(0,0,255);
+            fill(50,50,255);
         else if( clicked && bombs.contains(this) ) 
             fill(255,0,0);
         else if(clicked)
