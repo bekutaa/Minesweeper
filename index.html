@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 	<head>
 		<meta charset="utf-8">
-		<title>Title</title>
+		<title>GUIDO Minesweeper</title>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="styles.css">
 		<script src="processing.js"></script>
@@ -9,14 +9,15 @@
 	</head>
 	<body>
 		<header>
-			<h1>Header</h1>
+			<h1>Minesweeper</h1>
 		</header>
 			<section id="content">
 				<canvas id="Minesweeper" data-processing-sources="Minesweeper.pde">
 				</canvas>
 		    </section>
 	    <footer>
-		    Footer
+		    <p>Use the left mouse button to click on tiles and reveal them, whether they are bombs or empty. Use the right mouse button to toggle marks on tiles (this does not click them). Use the center mouse button to click on all tiles around a numbered tile once the number of marks around it is the same as the labeled number.</p>
+		    <p>Once you hit a bomb, you lose. If you manage to leave only the bombs unclicked, you win the game!</p>
 	    </footer>
 	</body>
 </html>
