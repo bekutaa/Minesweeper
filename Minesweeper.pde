@@ -178,7 +178,7 @@ public class MSButton
         }
         else if(mouseButton == CENTER)
         {
-            System.out.println("move");
+            
             if(countMarks(r,c) == Integer.parseInt(label))
             {
                 for(int rr = -1; rr < 2; rr++)
@@ -187,7 +187,7 @@ public class MSButton
                     {
                         if(isValid(r+rr,c+cc) && buttons[r+rr][c+cc].isClicked() == false && buttons[r+rr][c+cc].isMarked() == false)
                         {
-                            System.out.println("check[" + rr + "][" + cc + "]");
+                            
                             buttons[r+rr][c+cc].mouseSurround();
                         }
                     }
