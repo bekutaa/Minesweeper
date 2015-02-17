@@ -11,13 +11,11 @@ public boolean gameOver = false;
 
 public static final int NUM_BOMBS = (int)((NUM_ROWS*NUM_COLS)*0.1);
 
-
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
 
 void setup()
 {
-    //size(400,400);
     size(NUM_COLS*BUTTON_WIDTH + 1, NUM_ROWS*BUTTON_HEIGHT + 1);
     textAlign(CENTER,CENTER);
     
@@ -36,7 +34,6 @@ void setup()
     }
 
     bombs = new ArrayList <MSButton>();
-    System.out.println(NUM_BOMBS);
 }
 public void setBombs(int numBombs, int rr, int cc)
 {
