@@ -3,8 +3,8 @@ import de.bezier.guido.*;
 public static final int NUM_COLS = 20; //40;
 public static final int NUM_ROWS = 20; //NUM_COLS-(int)(NUM_COLS/4);
 
-public static final int BUTTON_WIDTH = 20;
-public static final int BUTTON_HEIGHT = 20;
+//public static final int BUTTON_WIDTH = 20;
+//public static final int BUTTON_HEIGHT = 20;
 
 public boolean bombsSet = false;
 public boolean gameOver = false;
@@ -148,8 +148,8 @@ public class MSButton
     
     public MSButton ( int rr, int cc )
     {
-        width = BUTTON_WIDTH;
-        height = BUTTON_HEIGHT;
+        width = 20;//BUTTON_WIDTH;
+        height = 20;//BUTTON_HEIGHT;
         r = rr;
         c = cc; 
         x = c*width;
@@ -210,7 +210,6 @@ public class MSButton
                         {
                             if(isValid(r+rr,c+cc))
                             {
-                                
                                 buttons[r+rr][c+cc].mouseSurround();
                             }
                         }
@@ -256,7 +255,7 @@ public class MSButton
                     {
                         if(isValid(r+rr,c+cc) && buttons[r+rr][c+cc].isClicked() == false)
                         {
-                            buttons[r+rr][c+cc].mouseSurround();
+                            buttons[r+rr][c+cc].mousePressed();//mouseSurround();
                         }
                     }
                 }
