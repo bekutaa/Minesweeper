@@ -1,7 +1,7 @@
 import de.bezier.guido.*;
 //Declare and initialize NUM_ROWS and NUM_COLS = 20
-public static final int NUM_COLS = 40; //40;
-public static final int NUM_ROWS = 30; //NUM_COLS-(int)(NUM_COLS/4);
+public static final int NUM_COLS = 20; //40;
+public static final int NUM_ROWS = 20; //NUM_COLS-(int)(NUM_COLS/4);
 
 public static final int BUTTON_WIDTH = 20;
 public static final int BUTTON_HEIGHT = 20;
