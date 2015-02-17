@@ -201,6 +201,8 @@ public class MSButton
             }
             else if(mouseButton == CENTER)
             {
+                buttons[0][1].setLabel("F");
+                buttons[0][2].setLabel("f");
                 if(countMarks(r,c) == Integer.parseInt(label))
                 {
                     for(int rr = -1; rr < 2; rr++)
