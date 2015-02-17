@@ -201,7 +201,7 @@ public class MSButton
             }
             else if(mouseButton == CENTER)
             {
-                
+                buttons[0][0].setLabel("F");
                 if(countMarks(r,c) == Integer.parseInt(label))
                 {
                     for(int rr = -1; rr < 2; rr++)
@@ -255,7 +255,7 @@ public class MSButton
                     {
                         if(isValid(r+rr,c+cc) && buttons[r+rr][c+cc].isClicked() == false)
                         {
-                            buttons[r+rr][c+cc].mousePressed();//mouseSurround();
+                            buttons[r+rr][c+cc].mouseSurround();
                         }
                     }
                 }

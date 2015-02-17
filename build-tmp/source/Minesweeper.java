@@ -18,23 +18,25 @@ public class Minesweeper extends PApplet {
 
 
 //Declare and initialize NUM_ROWS and NUM_COLS = 20
-public static final int NUM_COLS = 40; //40;
-public static final int NUM_ROWS = 30; //NUM_COLS-(int)(NUM_COLS/4);
+public static final int NUM_COLS = 20; //40;
+public static final int NUM_ROWS = 20; //NUM_COLS-(int)(NUM_COLS/4);
 
-public static final int BUTTON_WIDTH = 20;
-public static final int BUTTON_HEIGHT = 20;
+//public static final int BUTTON_WIDTH = 20;
+//public static final int BUTTON_HEIGHT = 20;
 
 public boolean bombsSet = false;
 public boolean gameOver = false;
 
-public static final int NUM_BOMBS = (int)((NUM_ROWS*NUM_COLS)*0.1f);
+//public static final int NUM_BOMBS = (int)((NUM_ROWS*NUM_COLS)*0.1);
+public static final int NUM_BOMBS = 40;
 
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
 
 public void setup()
 {
-    size(NUM_COLS*BUTTON_WIDTH + 1, NUM_ROWS*BUTTON_HEIGHT + 1);
+    size(400,400);
+    //size(NUM_COLS*BUTTON_WIDTH + 1, NUM_ROWS*BUTTON_HEIGHT + 1);
     textAlign(CENTER,CENTER);
     
     // make the manager
@@ -164,8 +166,8 @@ public class MSButton
     
     public MSButton ( int rr, int cc )
     {
-        width = BUTTON_WIDTH;
-        height = BUTTON_HEIGHT;
+        width = 20;//BUTTON_WIDTH;
+        height = 20;//BUTTON_HEIGHT;
         r = rr;
         c = cc; 
         x = c*width;
@@ -226,7 +228,6 @@ public class MSButton
                         {
                             if(isValid(r+rr,c+cc))
                             {
-                                
                                 buttons[r+rr][c+cc].mouseSurround();
                             }
                         }
@@ -272,7 +273,7 @@ public class MSButton
                     {
                         if(isValid(r+rr,c+cc) && buttons[r+rr][c+cc].isClicked() == false)
                         {
-                            buttons[r+rr][c+cc].mouseSurround();
+                            buttons[r+rr][c+cc].mousePressed();//mouseSurround();
                         }
                     }
                 }
