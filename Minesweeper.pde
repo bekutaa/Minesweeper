@@ -9,14 +9,16 @@ public static final int BUTTON_HEIGHT = 20;
 public boolean bombsSet = false;
 public boolean gameOver = false;
 
-public static final int NUM_BOMBS = (int)((NUM_ROWS*NUM_COLS)*0.1);
+//public static final int NUM_BOMBS = (int)((NUM_ROWS*NUM_COLS)*0.1);
+public static final int NUM_BOMBS = 40;
 
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
 
 void setup()
 {
-    size(NUM_COLS*BUTTON_WIDTH + 1, NUM_ROWS*BUTTON_HEIGHT + 1);
+    size(400,400);
+    //size(NUM_COLS*BUTTON_WIDTH + 1, NUM_ROWS*BUTTON_HEIGHT + 1);
     textAlign(CENTER,CENTER);
     
     // make the manager
