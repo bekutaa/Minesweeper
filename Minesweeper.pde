@@ -203,13 +203,15 @@ public class MSButton
             {
                 buttons[0][1].setLabel("F");
                 buttons[0][2].setLabel("f");
+                
                 if(countMarks(r,c) == Integer.parseInt(label))
                 {
+                    buttons[0][0].setLabel("t");
                     for(int rr = -1; rr < 2; rr++)
                     {
                         for(int cc = -1; cc < 2; cc++)
                         {
-                            buttons[0][0].setLabel(rr + "," + cc);
+                            
                             if(isValid(r+rr,c+cc))
                             {
                                 buttons[r+rr][c+cc].mouseSurround();
