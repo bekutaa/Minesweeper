@@ -55,6 +55,7 @@ public void setup()
 
     bombs = new ArrayList <MSButton>();
 }
+
 public void setBombs(int numBombs, int rr, int cc)
 {
     for(int i = 0; i < numBombs; i++)
@@ -72,25 +73,40 @@ public void setBombs(int numBombs, int rr, int cc)
 
 public void keyPressed()
 {
-  if(key == ' ')
-  {
-    bombsSet = false;
-    gameOver = false;
-    for(int i = 0; i < NUM_BOMBS; i++) {
-      if(bombs.size() > 0) {
-        bombs.remove(0);
-      }
-    }
-    for(int rr = 0; rr < NUM_ROWS; rr++)
+    if(key == ' ')
     {
-      for(int cc = 0; cc < NUM_COLS; cc++)
-      {
-        buttons[rr][cc].setClicked(false);
-        buttons[rr][cc].setMarked(false);
-        buttons[rr][cc].setLabel("");
-      }
+        bombsSet = false;
+        gameOver = false;
+        for(int i = 0; i < NUM_BOMBS; i++)
+            if(bombs.size() > 0)
+                bombs.remove(0);
+        
+        for(int rr = 0; rr < NUM_ROWS; rr++)
+        {
+            for(int cc = 0; cc < NUM_COLS; cc++)
+            {
+                buttons[rr][cc].setClicked(false);
+                buttons[rr][cc].setMarked(false);
+                buttons[rr][cc].setLabel("");
+            }
+        }
     }
-  }
+    if(key == 'z')
+    {
+        for(int i = 0; i < bombs.size(); i++)
+        {
+            (bombs.get(i)).setLabel("B");
+        }
+    }
+    if(key == 'x')
+    {
+        for(int i = 0; i < bombs.size(); i++)
+        {
+            (bombs.get(i)).setLabel("");
+        } 
+    }
+    if(key == 'a')
+        setBombs(200, -1, -1);
 }
 
 public void draw ()
@@ -284,7 +300,7 @@ public class MSButton
     public void draw () 
     {    
         if(marked)
-            fill(50,50,255);
+            fill(140,246,255);
         else if( clicked && bombs.contains(this) ) 
             fill(255,0,0);
         else if(clicked)
