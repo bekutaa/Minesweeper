@@ -18,25 +18,25 @@ public class Minesweeper extends PApplet {
 
 
 //Declare and initialize NUM_ROWS and NUM_COLS = 20
-public static final int NUM_COLS = 20; //40;
-public static final int NUM_ROWS = 20; //NUM_COLS-(int)(NUM_COLS/4);
+public static final int NUM_COLS = 40; //40;
+public static final int NUM_ROWS = 30; //NUM_COLS-(int)(NUM_COLS/4);
 
-//public static final int BUTTON_WIDTH = 20;
-//public static final int BUTTON_HEIGHT = 20;
+public static final int BUTTON_WIDTH = 20;
+public static final int BUTTON_HEIGHT = 20;
 
 public boolean bombsSet = false;
 public boolean gameOver = false;
 
-//public static final int NUM_BOMBS = (int)((NUM_ROWS*NUM_COLS)*0.1);
-public static final int NUM_BOMBS = 40;
+public static final int NUM_BOMBS = (int)((NUM_ROWS*NUM_COLS)*0.1f);
+//public static final int NUM_BOMBS = 40;
 
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
 
 public void setup()
 {
-    size(400,400);
-    //size(NUM_COLS*BUTTON_WIDTH + 1, NUM_ROWS*BUTTON_HEIGHT + 1);
+    //size(400,400);
+    size(NUM_COLS*BUTTON_WIDTH + 1, NUM_ROWS*BUTTON_HEIGHT + 1);
     textAlign(CENTER,CENTER);
     
     // make the manager
@@ -134,12 +134,12 @@ public void displayLosingMessage()
     {
         (bombs.get(i)).setClicked(true);
         (bombs.get(i)).setMarked(false);
-        (bombs.get(i)).setLabel("B");
+        //(bombs.get(i)).setLabel("B");
     }
 
-    int row = (NUM_ROWS/2)-1;
-    int col = (NUM_COLS/4)+1;
     String loser = "You lose!";
+    int row = (NUM_ROWS/2)-1;
+    int col = (NUM_COLS/2)-(loser.length()/2);
 
     for(int i = 0; i < loser.length(); i++)
         buttons[row][col+i].setLabel(loser.substring(i,i+1));
@@ -148,9 +148,10 @@ public void displayWinningMessage()
 {
   for(int a = 0; a < bombs.size(); a++)
     (bombs.get(a)).setMarked(true);
-  int row = (NUM_ROWS/2)-1;
-  int col = (NUM_COLS/4)+1;
+  
   String winner = "You win!";
+  int row = (NUM_ROWS/2)-1;
+  int col = (NUM_COLS/2)-(winner.length()/2);
 
   for(int i = 0; i < winner.length(); i++)
     if(col+i < NUM_COLS)
@@ -166,8 +167,8 @@ public class MSButton
     
     public MSButton ( int rr, int cc )
     {
-        width = 20;//BUTTON_WIDTH;
-        height = 20;//BUTTON_HEIGHT;
+        width = BUTTON_WIDTH;
+        height = BUTTON_HEIGHT;
         r = rr;
         c = cc; 
         x = c*width;
@@ -208,8 +209,6 @@ public class MSButton
         if(!isWon() && !gameOver) { 
             if(mouseButton == RIGHT && label.equals(""))
             {
-                
-
                 if(bombs.contains(this)) {
                     clicked = false;
                     marked = !marked;
