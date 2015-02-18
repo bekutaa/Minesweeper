@@ -201,7 +201,7 @@ public class MSButton
             }
             else if(mouseButton == CENTER)
             {
-                if(countMarks(r,c) == parseInt(label))
+                if(countMarks(r,c) == parseInt(label) && clicked)
                 {
                     for(int rr = -1; rr < 2; rr++)
                     {

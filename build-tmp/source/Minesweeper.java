@@ -208,6 +208,8 @@ public class MSButton
         if(!isWon() && !gameOver) { 
             if(mouseButton == RIGHT && label.equals(""))
             {
+                
+
                 if(bombs.contains(this)) {
                     clicked = false;
                     marked = !marked;
@@ -219,8 +221,7 @@ public class MSButton
             }
             else if(mouseButton == CENTER)
             {
-                
-                if(countMarks(r,c) == Integer.parseInt(label))
+                if(countMarks(r,c) == parseInt(label) && clicked)
                 {
                     for(int rr = -1; rr < 2; rr++)
                     {
@@ -273,7 +274,7 @@ public class MSButton
                     {
                         if(isValid(r+rr,c+cc) && buttons[r+rr][c+cc].isClicked() == false)
                         {
-                            buttons[r+rr][c+cc].mousePressed();//mouseSurround();
+                            buttons[r+rr][c+cc].mouseSurround();
                         }
                     }
                 }
